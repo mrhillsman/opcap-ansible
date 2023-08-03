@@ -1,0 +1,22 @@
+name: ansible-lint
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - '**/execution-environment.yml'
+      - '**/requirements.yml'
+      - '**/requirements.txt'
+jobs:
+  build:
+    name: Ansible Lint on PR
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Install python requirements (ansible-builder)
+        run: pip install -r requirements.txt
+
+      - name: Run ansible-lint
+        uses: ansible/ansible-lint@main
